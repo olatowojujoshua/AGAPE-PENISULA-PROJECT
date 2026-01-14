@@ -116,7 +116,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## Contact
 
-- **Email**: agape.peninsula.counselling@gmail.com
+- **Email**: olatowoju@gmail.com
 - **Website**: agape.peninsula.counselling.com
 - **Location**: Hauraki Region, New Zealand
 
