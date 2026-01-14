@@ -194,14 +194,14 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('004309212707aea22aae55881a488c4c.jpg') center/cover;
+    background: url('73da7147fd88cb2586263596b4135cb6.jpg') center/cover;
     opacity: 1;
     z-index: -1;
 }
 
 .hero-content {
     text-align: center;
-    color: var(--text-primary);
+    color: white;
     max-width: 900px;
     padding: 0 2rem;
     z-index: 1;
@@ -211,13 +211,14 @@ p {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(10px);
     padding: 0.5rem 1rem;
     border-radius: 2rem;
     margin-bottom: 2rem;
     font-size: 0.875rem;
     font-weight: 500;
+    color: white;
 }
 
 .hero-title {
@@ -225,6 +226,7 @@ p {
     font-weight: 700;
     margin-bottom: 1.5rem;
     line-height: 1.1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .gradient-text {
@@ -238,6 +240,7 @@ p {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .hero-actions {
@@ -300,12 +303,16 @@ p {
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .stat p {
     font-size: 0.875rem;
-    opacity: 0.8;
+    opacity: 0.9;
     margin-bottom: 0;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 /* Section Headers */
@@ -916,6 +923,7 @@ p {
 .footer-section h4 {
     margin-bottom: 1rem;
     color: white;
+    font-weight: 600;
 }
 
 .footer-section ul {
@@ -927,7 +935,7 @@ p {
 }
 
 .footer-section a {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     transition: var(--transition);
 }
@@ -963,10 +971,12 @@ p {
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.5rem;
+    color: white;
+    font-weight: 400;
 }
 
 .contact-info i {
-    color: var(--primary-color);
+    color: white;
     width: 20px;
 }
 
