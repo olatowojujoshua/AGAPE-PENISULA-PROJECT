@@ -226,11 +226,23 @@ p {
     font-weight: 700;
     margin-bottom: 1.5rem;
     line-height: 1.1;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-shadow: 
+        0 0 10px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(0, 0, 0, 0.4),
+        2px 2px 4px rgba(0, 0, 0, 0.9);
+    color: #000000;
+    filter: brightness(1.1) contrast(1.2);
 }
 
 .gradient-text {
-    color: var(--text-primary);
+    color: #000000;
+    text-shadow: 
+        0 0 10px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(0, 0, 0, 0.4),
+        2px 2px 4px rgba(0, 0, 0, 0.9);
+    filter: brightness(1.1) contrast(1.2);
 }
 
 .hero-subtitle {
