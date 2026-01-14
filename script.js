@@ -336,12 +336,12 @@ function selectPlan(planId) {
     }
     
     const plans = {
-        'student-daily': { name: 'Student Daily', price: 25 },
-        'professional-daily': { name: 'Professional Daily', price: 30 },
-        'student-monthly': { name: 'Student Monthly', price: 499 },
-        'professional-monthly': { name: 'Professional Monthly', price: 599 },
-        'student-yearly': { name: 'Student Yearly', price: 4999 },
-        'professional-yearly': { name: 'Professional Yearly', price: 5999 }
+        'student-daily': { name: 'Student Daily', price: 10 },
+        'professional-daily': { name: 'Professional Daily', price: 15 },
+        'student-monthly': { name: 'Student Monthly', price: 149 },
+        'professional-monthly': { name: 'Professional Monthly', price: 299 },
+        'student-yearly': { name: 'Student Yearly', price: 1599 },
+        'professional-yearly': { name: 'Professional Yearly', price: 1999 }
     };
     
     const plan = plans[planId];
