@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agape Peninsula Counselling - Professional Biblical & Christian Counselling</title>
+    <meta name="description" content="Professional AI-powered counselling services in Hauraki region. Biblical and Christian counselling with affordable daily, monthly, and yearly plans.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <div class="logo">
+                    <i class="fas fa-heart"></i>
+                    <h1>Agape Peninsula Counselling</h1>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#ai-counsellor" class="nav-link">AI Counsellor</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#login" class="nav-link login-btn">Login</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-background"></div>
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-robot"></i>
+                    <span>AI-Powered Counselling</span>
+                </div>
+                <h1 class="hero-title">Transform Your Life with <span class="gradient-text">Agape</span></h1>
+                <p class="hero-subtitle">Professional Biblical & Christian counselling with AI technology. Affordable daily, monthly, and yearly plans for everyone.</p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="startAIChat()">
+                        <i class="fas fa-comments"></i>
+                        Start AI Counselling
+                    </button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('pricing')">
+                        <i class="fas fa-dollar-sign"></i>
+                        View Pricing
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <h3>10+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100%</h3>
+                        <p>Client Healing</p>
+                    </div>
+                    <div class="stat">
+                        <h3>24/7</h3>
+                        <p>AI Support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Counselling Types -->
+        <section class="counselling-types">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Choose Your Counselling Path</h2>
+                    <p>Professional guidance tailored to your spiritual journey</p>
+                </div>
+                <div class="types-grid">
+                    <div class="type-card biblical">
+                        <div class="type-icon">
+                            <i class="fas fa-cross"></i>
+                        </div>
+                        <h3>Biblical Counselling</h3>
+                        <p>Rooted in scripture and Christian principles for spiritual healing and growth.</p>
+                        <ul class="features">
+                            <li><i class="fas fa-check"></i> Scripture-based guidance</li>
+                            <li><i class="fas fa-check"></i> Prayer integration</li>
+                            <li><i class="fas fa-check"></i> Christian values</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="selectCounsellingType('biblical')">Choose Biblical</button>
+                    </div>
+                    <div class="type-card general">
+                        <div class="type-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>General Counselling</h3>
+                        <p>Professional mental health support with respect for all beliefs and backgrounds.</p>
+                        <ul class="features">
+                            <li><i class="fas fa-check"></i> Evidence-based therapy</li>
+                            <li><i class="fas fa-check"></i> All backgrounds welcome</li>
+                            <li><i class="fas fa-check"></i> Personalized approach</li>
+                        </ul>
+                        <button class="btn btn-outline" onclick="selectCounsellingType('general')">Choose General</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Counsellor Section -->
+        <section id="ai-counsellor" class="ai-counsellor">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Meet Your AI Counsellor</h2>
+                    <p>Available 24/7 for instant support and guidance</p>
+                </div>
+                <div class="ai-interface">
+                    <div class="ai-chat-container">
+                        <div class="ai-header">
+                            <div class="ai-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="ai-info">
+                                <h3>Agape AI Counsellor</h3>
+                                <span class="status online">Online</span>
+                            </div>
+                            <div class="ai-actions">
+                                <button class="btn-icon" onclick="toggleVoiceChat()">
+                                    <i class="fas fa-microphone"></i>
+                                </button>
+                                <button class="btn-icon" onclick="clearChat()">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message ai-message">
+                                <div class="message-avatar">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="message-content">
+                                    <p>Hello! I'm your AI counsellor at Agape Peninsula. I'm here to provide compassionate, professional support 24/7. How are you feeling today?</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <div class="input-group">
+                                <input type="text" id="messageInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+                                <button class="btn-send" onclick="sendMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                            <div class="quick-actions">
+                                <button class="quick-btn" onclick="sendQuickMessage('I need help with anxiety')">Anxiety</button>
+                                <button class="quick-btn" onclick="sendQuickMessage('I feel depressed')">Depression</button>
+                                <button class="quick-btn" onclick="sendQuickMessage('Relationship issues')">Relationships</button>
+                                <button class="quick-btn" onclick="sendQuickMessage('Spiritual guidance')">Spiritual</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ai-features">
+                        <h4>AI Counsellor Features</h4>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-clock"></i> 24/7 Availability</li>
+                            <li><i class="fas fa-lock"></i> 100% Confidential</li>
+                            <li><i class="fas fa-brain"></i> Evidence-based Responses</li>
+                            <li><i class="fas fa-language"></i> Multiple Languages</li>
+                            <li><i class="fas fa-chart-line"></i> Progress Tracking</li>
+                            <li><i class="fas fa-book"></i> Biblical Integration (Optional)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Affordable Pricing Plans</h2>
+                    <p>Choose the plan that works best for your budget and needs</p>
+                </div>
+                
+                <!-- Daily Plans -->
+                <div class="pricing-category">
+                    <h3>Daily Plans</h3>
+                    <div class="pricing-grid">
+                        <div class="pricing-card student">
+                            <div class="card-header">
+                                <h4>Student Daily</h4>
+                                <div class="price">
+                                    <span class="currency">$</span>
+                                    <span class="amount">25</span>
+                                    <span class="period">/day</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> Unlimited AI chat</li>
+                                    <li><i class="fas fa-check"></i> Daily check-ins</li>
+                                    <li><i class="fas fa-check"></i> Progress tracking</li>
+                                    <li><i class="fas fa-check"></i> Biblical resources</li>
+                                </ul>
+                                <button class="btn btn-primary" onclick="selectPlan('student-daily')">Get Started</button>
+                            </div>
+                        </div>
+                        <div class="pricing-card professional featured">
+                            <div class="card-badge">Popular</div>
+                            <div class="card-header">
+                                <h4>Professional Daily</h4>
+                                <div class="price">
+                                    <span class="currency">$</span>
+                                    <span class="amount">30</span>
+                                    <span class="period">/day</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> Everything in Student</li>
+                                    <li><i class="fas fa-check"></i> Priority support</li>
+                                    <li><i class="fas fa-check"></i> Advanced analytics</li>
+                                    <li><i class="fas fa-check"></i> Custom plans</li>
+                                </ul>
+                                <button class="btn btn-primary" onclick="selectPlan('professional-daily')">Get Started</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monthly Plans -->
+                <div class="pricing-category">
+                    <h3>Monthly Plans</h3>
+                    <div class="pricing-grid">
+                        <div class="pricing-card student">
+                            <div class="card-header">
+                                <h4>Student Monthly</h4>
+                                <div class="price">
+                                    <span class="currency">$</span>
+                                    <span class="amount">499</span>
+                                    <span class="period">/month</span>
+                                </div>
+                                <div class="savings">Save $226</div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> All Daily features</li>
+                                    <li><i class="fas fa-check"></i> Monthly sessions</li>
+                                    <li><i class="fas fa-check"></i> Group therapy</li>
+                                    <li><i class="fas fa-check"></i> Workshop access</li>
+                                </ul>
+                                <button class="btn btn-primary" onclick="selectPlan('student-monthly')">Get Started</button>
+                            </div>
+                        </div>
+                        <div class="pricing-card professional featured">
+                            <div class="card-header">
+                                <h4>Professional Monthly</h4>
+                                <div class="price">
+                                    <span class="currency">$</span>
+                                    <span class="amount">599</span>
+                                    <span class="period">/month</span>
+                                </div>
+                                <div class="savings">Save $301</div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> All Student features</li>
+                                    <li><i class="fas fa-check"></i> Weekly sessions</li>
+                                    <li><i class="fas fa-check"></i> Emergency support</li>
+                                    <li><i class="fas fa-check"></i> Family counseling</li>
+                                </ul>
+                                <button class="btn btn-primary" onclick="selectPlan('professional-monthly')">Get Started</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Yearly Plans -->
+                <div class="pricing-category">
+                    <h3>Yearly Plans</h3>
+                    <div class="pricing-grid">
+                        <div class="pricing-card student">
+                            <div class="card-header">
+                                <h4>Student Yearly</h4>
+                                <div class="price">
+                                    <span class="currency">$</span>
+                                    <span class="amount">4,999</span>
+                                    <span class="period">/year</span>
+                                </div>
+                                <div class="savings">Save $4,126</div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> All Monthly features</li>
+                                    <li><i class="fas fa-check"></i> Unlimited sessions</li>
+                                    <li><i class="fas fa-check"></i> Retreat access</li>
+                                    <li><i class="fas fa-check"></i> Lifetime resources</li>
+                                </ul>
+                                <button class="btn btn-primary" onclick="selectPlan('student-yearly')">Get Started</button>
+                            </div>
+                        </div>
+                        <div class="pricing-card professional featured">
+                            <div class="card-header">
+                                <h4>Professional Yearly</h4>
+                                <div class="price">
+                                    <span class="currency">$</span>
+                                    <span class="amount">5,999</span>
+                                    <span class="period">/year</span>
+                                </div>
+                                <div class="savings">Save $4,916</div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="features">
+                                    <li><i class="fas fa-check"></i> All Student features</li>
+                                    <li><i class="fas fa-check"></i> VIP support</li>
+                                    <li><i class="fas fa-check"></i> Custom programs</li>
+                                    <li><i class="fas fa-check"></i> Partnership benefits</li>
+                                </ul>
+                                <button class="btn btn-primary" onclick="selectPlan('professional-yearly')">Get Started</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text">
+                        <div class="section-header">
+                            <h2>About Dean Shields</h2>
+                            <p>Founder & Lead Counsellor</p>
+                        </div>
+                        <div class="about-description">
+                            <p>I am the owner and founder of Agape Peninsula Counselling. With over 10 years of experience in the Hauraki region, I am dedicated to providing compassionate, professional counselling that transforms lives.</p>
+                            <p>Currently we are training and developing additional counsellors to provide you with counselling services that work. Our approach combines evidence-based therapy with biblical principles for holistic healing.</p>
+                        </div>
+                        <div class="credentials">
+                            <div class="credential">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Master's in Counselling</span>
+                            </div>
+                            <div class="credential">
+                                <i class="fas fa-certificate"></i>
+                                <span>Certified Biblical Counsellor</span>
+                            </div>
+                            <div class="credential">
+                                <i class="fas fa-award"></i>
+                                <span>10+ Years Experience</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://picsum.photos/seed/counsellor-professional/500/600.jpg" alt="Dean Shields - Professional Counsellor">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Client Success Stories</h2>
+                    <p>Real transformations through our counselling services</p>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"The AI counsellor helped me through my darkest moments. The biblical integration gave me hope and strength I never knew I had."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://picsum.photos/seed/client1/50/50.jpg" alt="Client">
+                            <div>
+                                <h4>Sarah M.</h4>
+                                <p>Student Plan</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"24/7 access to counselling changed my life. The affordable pricing made it possible to get the help I needed."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://picsum.photos/seed/client2/50/50.jpg" alt="Client">
+                            <div>
+                                <h4>John D.</h4>
+                                <p>Professional Plan</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"The combination of AI technology and human compassion creates the perfect counselling experience."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <img src="https://picsum.photos/seed/client3/50/50.jpg" alt="Client">
+                            <div>
+                                <h4>Emily R.</h4>
+                                <p>Monthly Plan</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-heart"></i>
+                        <h3>Agape Peninsula Counselling</h3>
+                    </div>
+                    <p>Professional Biblical & Christian counselling with AI technology. Transforming lives through compassion and innovation.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#ai-counsellor">AI Counselling</a></li>
+                        <li><a href="#pricing">Pricing Plans</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:agape.peninsula.counselling@gmail.com">agape.peninsula.counselling@gmail.com</a></p>
+                        <p><i class="fas fa-globe"></i> <a href="http://agape.peninsula.counselling.com">agape.peninsula.counselling.com</a></p>
+                        <p><i class="fas fa-phone"></i> +64 123 456 789</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Hauraki Region, New Zealand</p>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#emergency">Emergency Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Agape Peninsula Counselling. All rights reserved. | Made with <i class="fas fa-heart"></i> in New Zealand</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Login/Signup -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Welcome Back</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" onclick="switchTab('login')">Login</button>
+                    <button class="tab-btn" onclick="switchTab('signup')">Sign Up</button>
+                </div>
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <form id="signupForm" class="auth-form hidden">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
