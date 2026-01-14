@@ -6,10 +6,21 @@ class AIService {
     this.apiKey = process.env.OPENAI_API_KEY;
     this.model = process.env.AI_MODEL || 'gpt-3.5-turbo';
     this.baseURL = 'https://api.openai.com/v1';
+    
+    // Validate API key
+    if (!this.apiKey) {
+      console.warn('⚠️  OPENAI_API_KEY not found in environment variables');
+      console.log('Please add your OpenAI API key to .env file');
+    }
   }
 
   async getAIResponse(message, userId) {
     try {
+      // Check if API key is available
+      if (!this.apiKey || this.apiKey === 'your-openai-api-key') {
+        return this.getFallbackResponse(userId, 'api-key-missing');
+      }
+
       // Get user context for personalized responses
       const user = await User.findById(userId);
       const counsellingType = user?.counsellingType || 'general';
@@ -17,6 +28,8 @@ class AIService {
 
       // Create system prompt based on counselling type
       const systemPrompt = this.getSystemPrompt(counsellingType, userType);
+
+      console.log(`🤖 Sending request to OpenAI for user ${userId}`);
 
       const response = await axios.post(`${this.baseURL}/chat/completions`, {
         model: this.model,
@@ -33,19 +46,27 @@ class AIService {
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
           'Content-Type': 'application/json'
-        }
+        },
+        timeout: 30000 // 30 second timeout
       });
 
-      return response.data.choices[0].message.content;
+      const aiResponse = response.data.choices[0].message.content;
+      console.log(`✅ Received OpenAI response for user ${userId}`);
+      
+      return aiResponse;
 
     } catch (error) {
-      console.error('AI Service Error:', error.response?.data || error.message);
+      console.error('❌ OpenAI API Error:', error.response?.data || error.message);
       
-      // Fallback responses
-      if (counsellingType === 'biblical') {
-        return "I understand you're seeking guidance. Remember that 'The Lord is close to the brokenhearted and saves those who are crushed in spirit.' (Psalm 34:18). Would you like to share more about what's weighing on your heart today?";
+      // Handle specific OpenAI errors
+      if (error.response?.status === 401) {
+        return this.getFallbackResponse(userId, 'invalid-api-key');
+      } else if (error.response?.status === 429) {
+        return this.getFallbackResponse(userId, 'rate-limit');
+      } else if (error.response?.status === 402) {
+        return this.getFallbackResponse(userId, 'insufficient-credits');
       } else {
-        return "I'm here to support you. It takes courage to reach out, and I'm glad you did. Could you tell me more about what you're experiencing so I can better understand how to help?";
+        return this.getFallbackResponse(userId, 'general-error');
       }
     }
   }
@@ -60,7 +81,7 @@ class AIService {
       - Incorporate scripture and biblical wisdom when appropriate
       - Provide faith-based guidance and encouragement
       - Reference Christian values and principles
-      - Be respectful of the user's faith journey
+      - Be respectful of user's faith journey
       - Use biblical references naturally, not forced
       - Focus on hope, forgiveness, and spiritual growth
       
@@ -96,14 +117,47 @@ class AIService {
     }
   }
 
+  getFallbackResponse(userId, errorType) {
+    const user = User.findById(userId);
+    const counsellingType = user?.counsellingType || 'general';
+
+    const fallbackResponses = {
+      'api-key-missing': counsellingType === 'biblical' 
+        ? "I'm here to support you on your journey. 'Trust in the Lord with all your heart and lean not on your own understanding.' (Proverbs 3:5). Please note: To provide you with the best AI-powered guidance, we need to configure our OpenAI connection. In the meantime, how can I support you with prayer and encouragement?"
+        : "I'm here to support you through this conversation. Please note: To provide you with the best AI-powered guidance, we need to configure our OpenAI connection. In the meantime, I'm here to listen and provide general support. What would you like to share today?",
+      
+      'invalid-api-key': counsellingType === 'biblical'
+        ? "I'm having trouble connecting to my AI guidance system right now. Let's rely on faith and wisdom. 'The Lord is my strength and my shield; my heart trusts in him.' (Psalm 28:7). Please share what's on your heart, and I'll do my best to support you."
+        : "I'm experiencing technical difficulties with my AI connection right now. However, I'm still here to listen and provide support. Please share what's on your mind, and I'll do my best to help you work through it.",
+      
+      'rate-limit': counsellingType === 'biblical'
+        ? "Many people are seeking guidance right now - that's wonderful! 'Be still, and know that I am God.' (Psalm 46:10). Let's take a moment to breathe. What's one thing you'd like to focus on in this moment?"
+        : "I'm experiencing high demand right now, but you're important to me. Let's take a mindful moment together. Take a deep breath... What's one thing that's been on your mind lately?",
+      
+      'insufficient-credits': counsellingType === 'biblical'
+        ? "I need to take a brief moment to reset. 'Cast all your anxiety on him because he cares for you.' (1 Peter 5:7). While I reconnect, what's one area where you'd like to experience God's peace?"
+        : "I need to take a brief moment to reset. While I reconnect, let's focus on something positive. What's one small thing that brought you comfort or joy recently?",
+      
+      'general-error': counsellingType === 'biblical'
+        ? "I'm experiencing a temporary connection issue. 'God is our refuge and strength, an ever-present help in trouble.' (Psalm 46:1). I'm still here with you. What would you like to share while I reconnect?"
+        : "I'm experiencing a temporary connection issue, but I'm still here with you. Sometimes technology has its moments, just like we do. What would you like to share while I reconnect?"
+    };
+
+    return fallbackResponses[errorType] || fallbackResponses['general-error'];
+  }
+
   async getSentimentAnalysis(text) {
     try {
+      if (!this.apiKey || this.apiKey === 'your-openai-api-key') {
+        return 'neutral';
+      }
+
       const response = await axios.post(`${this.baseURL}/chat/completions`, {
         model: this.model,
         messages: [
           { 
             role: 'system', 
-            content: 'Analyze the sentiment of the following text and respond with only one word: positive, neutral, or negative.' 
+            content: 'Analyze sentiment of following text and respond with only one word: positive, neutral, or negative.' 
           },
           { role: 'user', content: text }
         ],
@@ -113,7 +167,8 @@ class AIService {
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
           'Content-Type': 'application/json'
-        }
+        },
+        timeout: 30000 // 30 second timeout
       });
 
       return response.data.choices[0].message.content.toLowerCase().trim();
@@ -126,6 +181,10 @@ class AIService {
 
   async generateSessionSummary(messages) {
     try {
+      if (!this.apiKey || this.apiKey === 'your-openai-api-key') {
+        return 'Session completed successfully. User engaged in meaningful discussion about their concerns.';
+      }
+
       const messageTexts = messages.map(msg => `${msg.sender}: ${msg.message}`).join('\n');
 
       const response = await axios.post(`${this.baseURL}/chat/completions`, {
@@ -133,7 +192,7 @@ class AIService {
         messages: [
           { 
             role: 'system', 
-            content: 'Summarize the following counselling session in 2-3 sentences, focusing on key themes, progress made, and any action items. Be compassionate and professional.' 
+            content: 'Summarize following counselling session in 2-3 sentences, focusing on key themes, progress made, and any action items. Be compassionate and professional.' 
           },
           { role: 'user', content: messageTexts }
         ],
@@ -143,7 +202,8 @@ class AIService {
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
           'Content-Type': 'application/json'
-        }
+        },
+        timeout: 30000 // 30 second timeout
       });
 
       return response.data.choices[0].message.content;
@@ -151,6 +211,38 @@ class AIService {
     } catch (error) {
       console.error('Session Summary Error:', error);
       return 'Session completed successfully. User engaged in meaningful discussion about their concerns.';
+    }
+  }
+
+  // Test OpenAI connection
+  async testConnection() {
+    try {
+      if (!this.apiKey || this.apiKey === 'your-openai-api-key') {
+        return { success: false, error: 'API key not configured' };
+      }
+
+      const response = await axios.post(`${this.baseURL}/chat/completions`, {
+        model: this.model,
+        messages: [
+          { role: 'user', content: 'Hello, can you respond with just "OK"?' }
+        ],
+        max_tokens: 10,
+        temperature: 0
+      }, {
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        timeout: 10000
+      });
+
+      return { success: true, message: 'OpenAI connection working' };
+
+    } catch (error) {
+      return { 
+        success: false, 
+        error: error.response?.data?.error?.message || error.message 
+      };
     }
   }
 }
